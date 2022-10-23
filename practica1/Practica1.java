@@ -46,15 +46,15 @@ public class Practica1 {
             boolean esCuadrado = false;
             while (it.hasNext()) {
                 int numero = it.next();
-                if (Math.sqrt(posibleCuadrado) == numero) {
+                if (Math.sqrt(posibleCuadrado) == numero ) {
                     if (posibleCuadrado == numero) {
                         if (cuadrados.contains(numero) && noCuadrados.contains(numero)) {
                             esCuadrado = true;
                         }
-                        break;
-                    } 
-                    cuadrados.add(posibleCuadrado);
-                    esCuadrado = true;
+                    } else {
+                        cuadrados.add(posibleCuadrado);
+                        esCuadrado = true;
+                    }
                 } 
             }
             if (cuadrados.contains(posibleCuadrado) && !esCuadrado) {
