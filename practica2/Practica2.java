@@ -9,13 +9,13 @@ public class Practica2 {
     //false en caso contrario
 
     public static<T> boolean removeDuplicates(ListIterator<T> it) {
-        boolean modificada = false;
+        boolean esModificada = false;
         while (it.hasNext()) {
             T elemento = it.next();
             while (it.hasNext()) { // Recorremos todos los elementos 
-                T posibleDiferente = it.next();
-                if (elemento.equals(posibleDiferente)) { // Y borramos todos los que son iguales. 
-                    modificada = true;
+                T posibleCoincidencia = it.next();
+                if (elemento.equals(posibleCoincidencia)) { // Y borramos todos los que son iguales. 
+                    esModificada = true;
                     it.remove();
                 }
             }
@@ -27,7 +27,7 @@ public class Practica2 {
                 }
             }
         }
-        return modificada;
+        return esModificada;
     }
 
     //Ejercicio
@@ -44,15 +44,13 @@ public class Practica2 {
         while (it.hasNext()) {
             int numero = it.next();
             while (it.hasNext()) { 
-                int posibleMultiplo = it.next();
-                if (posibleMultiplo % numero == 0) {
+                if (it.next() % numero == 0) {
                     it.remove();
                 } 
             }
             if (numero * 2 > n) return lista;
             while (it.hasPrevious()) {
-                int aux = it.previous();
-                if (aux == numero) {
+                if (it.previous() == numero) {
                     it.next();
                     break;
                 } 
@@ -98,15 +96,79 @@ public class Practica2 {
 
     public static boolean addADigit (List<Integer> num, int digito) {
         boolean modificada = false; 
-
-
+        int ultimaPosicion = num.size() - 1;
+        int meLlevo = 0;
+        for (int i = ultimaPosicion; i >= 0; i--) {
+            if (num.get(i) + digito > 9 && i == ultimaPosicion) {
+                num.set(i, (digito + num.get(i)) % 10);
+                meLlevo = 1;
+            } else if ((num.get(i) + meLlevo) > 9) {
+                num.set(i, (meLlevo + num.get(i)) % 10);
+            } else {
+                if (i == ultimaPosicion) {
+                    num.set(i, digito + num.get(i));  
+                } else {
+                    num.set(i, meLlevo + num.get(i));
+                }
+                meLlevo = 0;
+                break;
+            }
+        }
+        if (meLlevo == 1) {
+            num.add(0, 1);
+            modificada = true;
+        }
         return modificada;
     }
 
     //num1 y num2 son 2 listas que almacenan 2 números enteros dígito a digito
     //Modificar num1 para que almacene la suma de los dos números
     public static void addTwoNumbers (List<Integer> num1, List<Integer> num2) {
+        int meLlevo = 0;
+        int i, j;
+        int ultimaPosicionNum1 = num1.size() - 1;
+        int ultimaPosicionNum2 = num2.size() - 1;
 
+        for ( i = ultimaPosicionNum1, j = ultimaPosicionNum2; i >= 0 && j >= 0; i--, j--) {
+            if ((num1.get(i) + num2.get(j) ) > 9 && i == ultimaPosicionNum1 && j == ultimaPosicionNum2) {
+                num1.set(i, (num1.get(i) + num2.get(j)) % 10);
+                meLlevo = 1;
+            } else if ((num1.get(i) + num2.get(j) + meLlevo) > 9){
+                num1.set(i, (num1.get(i) + num2.get(j) + meLlevo) % 10);
+                meLlevo = 1;
+            } else {
+                num1.set(i, num1.get(i) + num2.get(j) + meLlevo);
+                meLlevo = 0;
+            }
+        }
+        if (num1.size() > num2.size() && meLlevo == 1) {
+            for (;i >= 0; i--) {
+                if (num1.get(i) + meLlevo > 9) {
+                    num1.set(i, (num1.get(i) + meLlevo) % 10);
+                } else {
+                    num1.set(i, num1.get(i) + meLlevo);
+                    meLlevo = 0;
+                }
+            }
+            if (meLlevo == 1) {
+                num1.add(0, 1);
+            }
+        } else if (num2.size() > num1.size()) {
+            i = j;
+            for (;i >= 0; i--) num1.add(0,0);
+            for (;j >= 0; j--) {
+                if (num2.get(j) + meLlevo > 9) {
+                    num1.set(j, (num2.get(j) + meLlevo) % 10);
+                } else {
+                    num1.set(j, num2.get(j) + meLlevo);
+                    meLlevo = 0;
+                }
+            }
+            if (meLlevo == 1) {
+                num1.add(0, 1);
+            } 
+        } else if (meLlevo == 1) {
+            num1.add(0, 1);
+        }
     }
-
 }

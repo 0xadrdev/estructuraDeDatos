@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Practica1 {
 
-
     //Dado un iterador a una colleción de elementos, devuelve un conjunto con los elementos
     //que son múltiplos de cualquier otro número de la colección inicial
     //Los 0 no se tienen en cuenta
@@ -13,23 +12,20 @@ public class Practica1 {
         while (it.hasNext()) {
             Iterator<Integer> itVistos = vistos.iterator();
             int posibleMultiplo = it.next(); 
-            while (itVistos.hasNext()) {
+            while (itVistos.hasNext() ) {
                 Integer numeroVisto = itVistos.next();
                 if (posibleMultiplo != 0 && numeroVisto != 0) {
-                    if (posibleMultiplo % numeroVisto == 0 && !multiplos.contains(posibleMultiplo)) {
+                    if (posibleMultiplo % numeroVisto == 0) {
                         multiplos.add(posibleMultiplo); 
-                    } else if (numeroVisto % posibleMultiplo == 0 && !multiplos.contains(numeroVisto)) {
+                    } else if (numeroVisto % posibleMultiplo == 0) {
                         multiplos.add(numeroVisto);
                     }
                 }
             }
-            if (!vistos.contains(posibleMultiplo)) {
-                vistos.add(posibleMultiplo);
-            }
+            vistos.add(posibleMultiplo);
         }
         return multiplos; 
     }
-
 
     //Dados dos conjuntos de enteros, el método debe modificarlos de tal forma que al finalizar
     //en cuadrados deben quedar los elementos que son el cuadrado de otro número de cualquiera de los
@@ -52,24 +48,20 @@ public class Practica1 {
                             esCuadrado = true;
                         }
                     } else {
-                        cuadrados.add(posibleCuadrado);
                         esCuadrado = true;
+                        cuadrados.add(posibleCuadrado);
                     }
                 } 
             }
-            if (cuadrados.contains(posibleCuadrado) && !esCuadrado) {
-                cuadrados.remove(posibleCuadrado);
-                if (!noCuadrados.contains(posibleCuadrado)) {
-                    noCuadrados.add(posibleCuadrado);
-                }
+            if (!esCuadrado) { // Si no es cuadrado 
+                cuadrados.remove(posibleCuadrado); // lo quitamos de cuadrados 
+                noCuadrados.add(posibleCuadrado); // y lo añadimos a noCuadrados. 
             }
         }
-        noCuadrados.removeAll(cuadrados);
+        noCuadrados.removeAll(cuadrados); // Quitamos todos lo cuadrados de noCuadrados. 
     }
     
-
-        // Con un solo recorrido y 1 vistos. 
-        
+    // Con un solo recorrido y 1 vistos. 
 
     //Dada un iterador al inicio de una colección de elementos donde puede haber repetidos, dividir dicha colección en el mínimo
     //número de conjuntos. El método debe devolver los conjuntos obtenidos
@@ -108,6 +100,7 @@ public class Practica1 {
     // conjuntos de la lista cuya unión forma el conjunto u.
     //Si no hay 2 conjuntos de la lista que formen u, entonces devolverá una colección vacía.
     //Si hubiera más de dos conjuntos cuya unión sea u, devolverá los primeros que encuentre.
+
     public static<T> Collection<Set<T>> coverageSet2 (Set<T> u,ArrayList<Set<T>> col) {
         Collection<Set<T>> coleccion = new HashSet<>();
         for (Set<T> conjunto:col) {
@@ -127,8 +120,4 @@ public class Practica1 {
         }
         return coleccion;
     }
-
-
-
-
 }
