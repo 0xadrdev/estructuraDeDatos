@@ -70,9 +70,8 @@ public class EDDoubleLinkedList<T> implements List<T> {
             size++;
             while (itLista.hasNext()) {
                 Node nuevoNodo = new Node(itLista.next());
-                last.next = nuevoNodo;
                 nuevoNodo.prev = last;
-                last = nuevoNodo;
+                last = last.next = nuevoNodo;
                 size++;
             }
         } else if (size >= 1 && lista.size() > 0){

@@ -1,10 +1,13 @@
 .vscode
 bin
 datos 
-lib 
-# practica2 
-practica3
+lib  
 practica1/TestPractica1.java 
 practica2/TestPractica2.java 
 practica3/TestLyrics.java 
+practica7
 test.java 
+practica5/EDLinkedHashSetTest.java
+practica6/EDBinaryNode.java
+practica6/BinaryExpressionTreeTest.java
+practica4/EDDoubleLinkedListTest.java
